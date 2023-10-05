@@ -3,8 +3,23 @@ api_platform:
     version: 1.0.0
     # Good defaults for REST APIs
     defaults:
-        stateless: true
+        stateless: false
         cache_headers:
             vary: ['Content-Type', 'Authorization', 'Origin']
         extra_properties:
             standard_put: true
+    oauth:
+        enabled: true
+        clientId: '%env(OAUTH_KEYCLOAK_CLIENT_ID)%'
+        clientSecret: '%env(OAUTH_KEYCLOAK_CLIENT_SECRET)%'
+        type: 'oauth2'
+        # The oauth flow grant type.
+        flow: 'password'
+        # The oauth authentication url.
+        authorizationUrl: '%env(OAUTH_KEYCLOAK_APP_AUTH)%'
+        # The oauth token url.
+        tokenUrl: '%env(OAUTH_KEYCLOAK_APP_TOKEN)%'
+        # The oauth scopes.
+        scopes:
+            email: 'Allow to retrieve user email'
+            profile: 'Allow to retrive profile user'
